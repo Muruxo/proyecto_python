@@ -1,6 +1,7 @@
 from django import forms
 from django.utils import timezone
 from django.forms import ModelForm
+from django.shortcuts import render
 
 from .models import Empleo, Publicacion, Postulante, Detallepostulante
 
@@ -46,13 +47,14 @@ class PublicacionForm(ModelForm):
         }
         
 
-class DatosPersonales(ModelForm):
+class DatosPersonales(forms.ModelForm):
     class Meta: 
+        genero = {'':'','M':'Masculino', 'F':'Femenino'}
         model = Postulante
-        fields = '__all__'
-        labels = { 
+        fields = ['nombre_postulante','apellido_postulante','email_postulante','telefono_postulante','genero_postulante','edad_postulante','ciudad_postulante','direccion_postulante']
+        labels = {  
             'nombre_postulante': 'Nombres',
-            'apellito_postulante': 'Apellidos', 
+            'apellido_postulante': 'Apellidos', 
             'email_postulante': 'Email', 
             'telefono_postulante': 'Teléfono', 
             'genero_postulante': 'Género', 
@@ -62,11 +64,12 @@ class DatosPersonales(ModelForm):
         }
         widgets = { 
              'nombre_postulante': forms.TextInput(attrs = {'class': 'form-control'}),
-            'apellito_postulante': forms.TextInput(attrs = {'class': 'form-control'}),
+            'apellido_postulante': forms.TextInput(attrs = {'class': 'form-control'}),
             'email_postulante': forms.EmailInput(attrs = {'class': 'form-control'}),
             'telefono_postulante': forms.NumberInput(attrs = {'class': 'form-control'}),
-            'genero_postulante': forms.Select(),
+            'genero_postulante' : forms.Select(choices=genero.items()),
             'edad_postulante':  forms.NumberInput(attrs = {'class': 'form-control'}), 
             'ciudad_postulante': forms.TextInput(attrs = {'class': 'form-control'}),
             'direccion_postulante': forms.TextInput(attrs = {'class': 'form-control'}),
         }
+

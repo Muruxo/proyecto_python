@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
-from .models import Publicacion, Empleo
-from  .forms import PublicacionForm, EmpleoForm
+from .models import Publicacion, Empleo, Postulante
+from  .forms import PublicacionForm, EmpleoForm, DatosPersonales
 
 def actualizar(request, publicacion_id): 
     publicacion = Empleo.objects.get(pk = publicacion_id)
@@ -61,3 +61,15 @@ def descripcion(request, empleo_id):
     return render(request, template, contenido)
 
 
+#FORM DATOS PERSONALES POSTULANTE
+
+@login_required    
+def agregarDatosPersonales(request): 
+    if request.POST: 
+        form = DatosPersonales(request.POST)
+        if form.is_valid():
+            form.save()
+        messages.success(request, 'Informacion agregada con éxito')
+        return redirect(home)  
+
+    return render(request, 'app/DatosPersonales.html', {'form':DatosPersonales})
