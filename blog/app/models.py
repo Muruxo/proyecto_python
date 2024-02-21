@@ -34,12 +34,13 @@ class Detallepostulante(models.Model):
     
     descripcion_laboral = models.TextField(blank=True,null=True)
     idioma_laboral = models.CharField(max_length=255,blank=True,null=True)
-    id_postulante_fk = models.ForeignKey(Postulante, related_name='postulante', on_delete=models.SET_NULL,null=True)
+    id_postulante_fk = models.ForeignKey(Postulante, related_name='postulante', on_delete=models.CASCADE,null=True)
 
     def __str__(self)->str:
         return f'{self.experiencia_laboral}'
 
 class Experiencia(models.Model): 
+    id_experiencia_fk = models.ForeignKey(Postulante, related_name='postulanteexp', on_delete=models.CASCADE,null=True)
     cargo_exp = models.CharField(max_length=255,blank=False,null=False)
     empresa_exp = models.CharField(max_length=255,blank=False,null=False)
     pais_exp = models.CharField(max_length=255,blank=False,null=False)
@@ -50,18 +51,34 @@ class Experiencia(models.Model):
     
     def __str__(self)->str:
         return f'{self.empresa_exp}'
+    class Meta: 
+        verbose_name_plural = 'Experiencia'
+        
+        
+class Niveltitulo(models.Model): 
+    nivel = models.CharField(max_length=144,blank=False, null=False)
+    
+    def __str__(self)-> str:
+        return f'{self.nivel}'
+
+    class Meta: 
+        verbose_name_plural = 'Niveltitulo'
+        
     
 class Educacion(models.Model): 
+    id_educacion_fk = models.ForeignKey(Postulante, related_name='postulanteedu', on_delete=models.CASCADE,null=True)
     titulo_edu = models.CharField(max_length=255,blank=False,null=False)
     pais_edu = models.CharField(max_length=255,blank=False,null=False)
     institucion_edu = models.CharField(max_length=255,blank=False,null=False)
-    nivel_edu= models.CharField(max_length=255,blank=False,null=False)
+    nivel_edu= models.ForeignKey(Niveltitulo, related_name='nivelid', on_delete=models.CASCADE,null=True)
     estado_edu= models.CharField(max_length=255,blank=False,null=False)
     descripcion_edu = models.TextField(blank=True,null=True)
     
     def __str__(self)->str:
             return f'{self.titulo_edu}'
-
+    class Meta: 
+        verbose_name_plural = 'Educacion'
+        
 class Ciudad(models.Model):
     nombre_ciudad = models.CharField(max_length=144,blank=False, null=False)
     telefono_ciudad = models.IntegerField(blank=False,null=False, validators=[MaxValueValidator(9999999999)])
@@ -97,3 +114,5 @@ class Postulados(models.Model):
 
     class Meta: 
         verbose_name_plural = 'Postulados'
+
+

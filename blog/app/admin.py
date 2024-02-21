@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Publicacion, Postulante, Detallepostulante, Ciudad, Empleo, Postulados
+from .models import Publicacion, Postulante, Detallepostulante, Ciudad, Empleo, Postulados, Experiencia, Educacion, Niveltitulo
 
 
 @admin.register(Publicacion)
@@ -68,3 +68,34 @@ class PostuladosAdmin(admin.ModelAdmin):
         'id_empleo_fk',
     )
     list_filter = ('fecha_postulado', 'id_postulados_fk', 'id_empleo_fk')
+
+@admin.register(Experiencia)
+class ExperienciaAdmin(admin.ModelAdmin):
+    list_display = (
+        'id',
+        'cargo_exp',
+        'empresa_exp',
+        'pais_exp',
+        'area_exo',
+        'finicio_exp',
+        'ffinal_exp',
+        'descripcion_exp',
+    )
+    list_filter = ('finicio_exp', 'ffinal_exp')
+
+
+@admin.register(Educacion)
+class EducacionAdmin(admin.ModelAdmin):
+    list_display = (
+        'id',
+        'titulo_edu',
+        'pais_edu',
+        'institucion_edu',
+        'nivel_edu',
+        'estado_edu',
+        'descripcion_edu',
+    )
+
+@admin.register(Niveltitulo)
+class NiveltituloAdmin(admin.ModelAdmin):
+    list_display = ('id', 'nivel')
