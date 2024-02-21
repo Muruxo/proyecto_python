@@ -31,6 +31,7 @@ class Postulante(models.Model):
 class Detallepostulante(models.Model):
     experiencia_laboral = models.TextField(blank=True,null=True)
     curso_laboral = models.CharField(max_length=255,blank=False,null=False)
+    
     descripcion_laboral = models.TextField(blank=True,null=True)
     idioma_laboral = models.CharField(max_length=255,blank=True,null=True)
     id_postulante_fk = models.ForeignKey(Postulante, related_name='postulante', on_delete=models.SET_NULL,null=True)
@@ -38,6 +39,28 @@ class Detallepostulante(models.Model):
     def __str__(self)->str:
         return f'{self.experiencia_laboral}'
 
+class Experiencia(models.Model): 
+    cargo_exp = models.CharField(max_length=255,blank=False,null=False)
+    empresa_exp = models.CharField(max_length=255,blank=False,null=False)
+    pais_exp = models.CharField(max_length=255,blank=False,null=False)
+    area_exo = models.CharField(max_length=255,blank=False,null=False)
+    finicio_exp = models.DateField(blank=False, null= False)
+    ffinal_exp = models.DateField(blank=True, null=True)
+    descripcion_exp = models.TextField(blank=True,null=True)
+    
+    def __str__(self)->str:
+        return f'{self.empresa_exp}'
+    
+class Educacion(models.Model): 
+    titulo_edu = models.CharField(max_length=255,blank=False,null=False)
+    pais_edu = models.CharField(max_length=255,blank=False,null=False)
+    institucion_edu = models.CharField(max_length=255,blank=False,null=False)
+    nivel_edu= models.CharField(max_length=255,blank=False,null=False)
+    estado_edu= models.CharField(max_length=255,blank=False,null=False)
+    descripcion_edu = models.TextField(blank=True,null=True)
+    
+    def __str__(self)->str:
+            return f'{self.titulo_edu}'
 
 class Ciudad(models.Model):
     nombre_ciudad = models.CharField(max_length=144,blank=False, null=False)
