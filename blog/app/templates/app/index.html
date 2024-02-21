@@ -7,7 +7,7 @@
 
 <style>
 
-a:link, a:visited,  a:hover, a:active
+.dir:link, .dir:visited,  .dir:hover, .dir:active
 {
     color: #000000;
     text-decoration: none;
@@ -27,7 +27,7 @@ a:link, a:visited,  a:hover, a:active
 {%for p in empleos %} <br>
 <div class="container-fluid col-sm-8 mb-6 mb-sm-2">
     <div class="card">
-      <a href="{% url 'descripcion' p.id %}">
+      <a class="dir" href="{% url 'descripcion' p.id %}">
       <div class="card-body btn" style="text-align:left;">
         <h5 class="card-title">{{p.nombre_empleo}}</h5>
         <p class="card-text"><i class="bi bi-geo-alt"></i> {{p.id_ciudad_fk }}</p>
