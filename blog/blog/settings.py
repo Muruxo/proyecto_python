@@ -27,8 +27,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# Redireccionar al iniciar y salir de sesión 
 
-# Application definition
+LOGIN_REDIRECT_URL = 'home',
+LOGOUT_REDIRECT_URL ='index'
+
+# Application 
 
 INSTALLED_APPS = [
     'django.contrib.admin',
