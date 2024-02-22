@@ -29,9 +29,6 @@ class Postulante(models.Model):
             return f'{self.pk} - {self.nombre_postulante}'
 
 class Detallepostulante(models.Model):
-    experiencia_laboral = models.TextField(blank=True,null=True)
-    curso_laboral = models.CharField(max_length=255,blank=False,null=False)
-    
     descripcion_laboral = models.TextField(blank=True,null=True)
     idioma_laboral = models.CharField(max_length=255,blank=True,null=True)
     id_postulante_fk = models.ForeignKey(Postulante, related_name='postulante', on_delete=models.CASCADE,null=True)
@@ -93,7 +90,7 @@ class Ciudad(models.Model):
 class Empleo(models.Model):
     nombre_empleo = models.CharField(max_length=144,blank=False, null=False)
     descripcion_empleo = models.TextField(blank=True,null=True)
-    fecha_empleo = models.DateTimeField(default=timezone.now, blank=False,null=False)
+    fecha_empleo = models.DateField(default=timezone.now, blank=False,null=False)
     area_empleo = models.CharField(max_length=200,blank=False,null=False)
     modalidad_empleo = models.CharField(max_length=200,blank=False,null=False)
     tiempo_empleo = models.IntegerField(blank=False,null=False, validators=[MaxValueValidator(9999999999)])
@@ -105,7 +102,7 @@ class Empleo(models.Model):
 
 class Postulados(models.Model):
     estado_postulado = models.CharField(max_length=144,blank=False, null=False)
-    fecha_postulado = models.DateTimeField(default=timezone.now, blank=False,null=False)
+    fecha_postulado = models.DateField(default=timezone.now, blank=False,null=False)
     id_postulados_fk = models.ForeignKey(Postulante, related_name='postulado', on_delete=models.SET_NULL,null=True)
     id_empleo_fk = models.ForeignKey(Empleo, related_name='empleo', on_delete=models.SET_NULL,null=True)
 

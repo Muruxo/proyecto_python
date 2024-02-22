@@ -29,8 +29,6 @@ class PostulanteAdmin(admin.ModelAdmin):
 class DetallepostulanteAdmin(admin.ModelAdmin):
     list_display = (
         'id',
-        'experiencia_laboral',
-        'curso_laboral',
         'descripcion_laboral',
         'idioma_laboral',
         'id_postulante_fk',

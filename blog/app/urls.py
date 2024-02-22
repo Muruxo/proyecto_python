@@ -11,6 +11,8 @@ urlpatterns = [
     path('postular', views.postular, name = 'postular'),
     path('descripcion/<empleo_id>', views.descripcion, name ="descripcion"), 
     path('accounts/', include('allauth.urls')),
-    path('DatosPersonales', views.agregarDatosPersonales, name='DatosPersonales'),
-   
+    path('DatosPer', views.agregarDatosPersonales, name='DatosPer'),
+    path('DatosAd', views.agregarDatosAdicionales, name='DatosAd'),
+    path('DatosEdu', views.agregarDatosEducacion, name='DatosEdu')
 ]
+

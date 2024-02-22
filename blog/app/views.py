@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
-from .models import Publicacion, Empleo, Postulante
-from  .forms import PublicacionForm, EmpleoForm, DatosPersonales
+from .models import Publicacion, Empleo, Postulante, Experiencia, Detallepostulante
+from  .forms import PublicacionForm, EmpleoForm, DatosPersonalesForm, ExperienciaForm, DatosAdicionalesForm, EducacionForm
 
 def actualizar(request, publicacion_id): 
     publicacion = Empleo.objects.get(pk = publicacion_id)
@@ -66,10 +66,36 @@ def descripcion(request, empleo_id):
 @login_required    
 def agregarDatosPersonales(request): 
     if request.POST: 
-        form = DatosPersonales(request.POST)
+        form = DatosPersonalesForm(request.POST)
         if form.is_valid():
             form.save()
         messages.success(request, 'Informacion agregada con éxito')
-        return redirect(home)  
+        return redirect(agregarDatosAdicionales) 
 
-    return render(request, 'app/DatosPersonales.html', {'form':DatosPersonales})
+    return render(request, 'app/DatosPersonales.html', {'form':DatosPersonalesForm})
+
+
+@login_required    
+def agregarDatosAdicionales(request): 
+    if request.POST: 
+        ExperienciaForm1 = ExperienciaForm(request.POST)
+        DatosAdicionalesForm1 = DatosAdicionalesForm(request.POST)
+        if ExperienciaForm1.is_valid() and DatosAdicionalesForm1.is_valid():
+            ExperienciaForm1.save()
+            DatosAdicionalesForm1.save()
+        messages.success(request, 'Informacion agregada con éxito')
+        return redirect(agregarDatosEducacion)  
+
+    return render(request, 'app/DatosAd.html', {'form1':ExperienciaForm, 'form2': DatosAdicionalesForm})
+
+
+@login_required    
+def agregarDatosEducacion(request): 
+    if request.POST: 
+        form = EducacionForm(request.POST)
+        if form.is_valid():
+            form.save()
+        messages.success(request, 'Informacion agregada con éxito')
+        return redirect(index)  
+
+    return render(request, 'app/DatosEducacion.html', {'form':EducacionForm})
