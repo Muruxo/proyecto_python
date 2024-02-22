@@ -17,6 +17,11 @@
         <p class="card-text">Modalidad: {{p.modalidad_empleo}}</p>
         <p class="card-text">Tiempo de Trabajo: {{p.tiempo_empleo}} meses</p>
         <p class="card-text">Ciudad: {{p.id_ciudad_fk }}</p>
+
+        {%for postulacion in p.postulados.all %}
+        {{postulacion}}
+
+        {%endfor%}
         <a href="{% url 'eliminar' p.id %}" class="btn btn-danger">Eliminar</a>
       <a href="{% url 'actualizar' p.id %}" class="btn btn-success">Actualizar</a>
       </div>
